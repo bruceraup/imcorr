@@ -1,0 +1,68 @@
+# makefile for imcorr, SGI
+#
+# $Id: makefile.SGI,v 1.5 2000-03-02 12:44:04-07 braup Exp $
+#
+# $Log: makefile.SGI,v $
+# Revision 1.5  2000-03-02 12:44:04-07  braup
+# Made no-command-line version the default
+#
+# Revision 1.4  2000-03-02 12:41:56-07  braup
+# Deleted imcorr.o from make clean target.
+#
+# Revision 1.3  2000-03-02 12:26:50-07  braup
+# Changes for new release.
+#
+# Revision 1.2  2000-01-27 15:26:41-07  braup
+# Added some make variables instead of having everything hardcoded.
+#
+# Revision 1.1  2000-01-27 15:24:49-07  braup
+# Initial revision
+#
+
+F77 = f77
+
+FLAGS = -O
+#FLAGS =
+
+# Uncomment out the next line if you want imcorr to print the
+# command line (preceded by a "#" character) as the first line in the
+# output file.
+DEFS = -DCOMMANDLINE
+
+imcorr: cross.o    eval.o     fitreg.o   gnorm.o    sums.o \
+        esterr.o   fft2d.o    gcorr.o    kvert.o imcorr.c
+	$(F77) $(FLAGS) $(DEFS) imcorr.c cross.o eval.o fitreg.o gnorm.o sums.o esterr.o \
+        fft2d.o gcorr.o kvert.o -lm  -o imcorr
+
+
+cross.o: correlate.h cross.f
+	$(F77) $(FLAGS) -c cross.f
+
+eval.o: correlate.h eval.f
+	$(F77) $(FLAGS) -c eval.f
+
+fitreg.o: correlate.h fitreg.f
+	$(F77) $(FLAGS) -c fitreg.f
+
+gnorm.o: correlate.h gnorm.f
+	$(F77) $(FLAGS) -c gnorm.f
+
+sums.o: correlate.h sums.f
+	$(F77) $(FLAGS) -c sums.f
+
+esterr.o: correlate.h esterr.f
+	$(F77) $(FLAGS) -c esterr.f
+
+fft2d.o: correlate.h fft2d.f
+	$(F77) $(FLAGS) -c fft2d.f
+
+gcorr.o: correlate.h gcorr.f
+	$(F77) $(FLAGS) -c gcorr.f
+
+kvert.o: correlate.h kvert.f
+	$(F77) $(FLAGS) -c kvert.f
+
+
+clean:
+	rm cross.o    eval.o     fitreg.o   gnorm.o    sums.o \
+        esterr.o   fft2d.o    gcorr.o    kvert.o

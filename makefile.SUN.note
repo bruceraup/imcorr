@@ -1,0 +1,36 @@
+From teds@icehouse.colorado.edu Wed Dec 27 16:47:48 2000
+Date: Thu, 21 Dec 2000 14:35:44 -0700
+From: Ted Scambos <teds@icehouse.colorado.edu>
+To: Dave Burgess <dob@ualberta.ca>
+Cc: braup@fastice.colorado.edu
+Subject: Re: IMCORR
+
+Hello Dave: thanks for the information - I'll pass it on to the IMCORR
+curator, Bruce Raup. (sorry for the long delay in responding, I was in
+the Antarctic doing field work for most of November).
+
+Dave Burgess wrote:
+> 
+> Hi Ted,
+>     We had to add the library -lsunmath to the makefile.SUN file to get
+> IMCORR to compile on our sun.  I just wanted to let you know this as I
+> downloaded the program from the web therefore others may also be having
+> the same problems.
+> 
+> Regards,
+> 
+>     Dave Burgess
+>     Dept. of Earth and Atmospheric Sciences,
+>     University of Alberta,
+>     Edmonton, Canada
+
+-- 
+*************************************
+           Ted Scambos
+ National Snow and Ice Data Center
+CIRES  Campus Box 449; 1540 30th St.
+     University of Colorado
+Boulder   CO      80309-0449     USA
+vox: 303/492-1113   fax:303/492-2468
+  net: teds@icehouse.colorado.edu
+*************************************

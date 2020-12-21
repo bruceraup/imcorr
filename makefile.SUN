@@ -1,0 +1,70 @@
+# makefile for imcorr, SUN
+# $Id: makefile.SUN,v 1.5 2000-03-02 12:44:04-07 braup Exp $
+#
+# $Log: makefile.SUN,v $
+# Revision 1.5  2000-03-02 12:44:04-07  braup
+# Made no-command-line version the default
+#
+# Revision 1.4  2000-03-02 12:41:31-07  braup
+# Added imcorr.o to make clean target.
+#
+# Revision 1.3  2000-03-02 12:21:06-07  braup
+# Changed things a bit so that it would build on Solaris (SunOS 5.6)
+#
+# Revision 1.2  2000-03-01 16:53:31-07  braup
+# Changed some hardcoded lines to use make variables.
+#
+# Revision 1.1  2000-01-27 15:23:59-07  braup
+# Initial revision
+#
+
+CC = cc
+F77 = f77
+FLAGS = -O
+
+# Uncomment out the next line if you want imcorr to print the
+# command line (preceded by a "#" character) as the first line in the
+# output file.
+#DEFS = -DCOMMANDLINE
+
+
+imcorr: cross.o    eval.o     fitreg.o   gnorm.o    sums.o \
+	esterr.o   fft2d.o    gcorr.o    kvert.o imcorr.o
+	$(F77) imcorr.o cross.o eval.o fitreg.o gnorm.o sums.o esterr.o \
+	fft2d.o gcorr.o kvert.o -lF77 -lc -lm -o imcorr
+
+imcorr.o: correlate.h imcorr.c
+	$(CC) $(FLAGS) $(DEFS) -c imcorr.c
+
+cross.o: correlate.h cross.f
+	$(F77) $(FLAGS) -c cross.f
+
+eval.o: correlate.h eval.f
+	$(F77) $(FLAGS) -c eval.f
+
+fitreg.o: correlate.h fitreg.f
+	$(F77) $(FLAGS) -c fitreg.f
+
+gnorm.o: correlate.h gnorm.f
+	$(F77) $(FLAGS) -c gnorm.f
+
+sums.o: correlate.h sums.f
+	$(F77) $(FLAGS) -c sums.f
+
+esterr.o: correlate.h esterr.f
+	$(F77) $(FLAGS) -c esterr.f
+
+fft2d.o: correlate.h fft2d.f
+	$(F77) $(FLAGS) -c fft2d.f
+
+gcorr.o: correlate.h gcorr.f
+	$(F77) $(FLAGS) -c gcorr.f
+
+kvert.o: correlate.h kvert.f
+	$(F77) $(FLAGS) -c kvert.f
+
+
+clean: 
+	rm cross.o    eval.o     fitreg.o   gnorm.o    sums.o \
+        esterr.o   fft2d.o    gcorr.o    kvert.o imcorr.o
+
