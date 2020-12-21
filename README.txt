@@ -1,5 +1,11 @@
 IMCORR Release 1.1
-$Date: 2000-03-02 14:12:28-07 $
+
+------------------------------------------------------------------------
+2020-12-21
+
+This is unsupported software.  Information below, particularly contact
+information, may be out-of-date.
+------------------------------------------------------------------------
 
 (Note:  This file, the makefiles, and a couple of other details about the
 distribution have been slightly edited and put under revision control by Bruce
@@ -15,9 +21,9 @@ M. Fahnestock    (2)
 R. Bindschadler  (3)
 B. Raup          (4)
 
-(1) National Snow and Ice Data Center CIRES  Campus Box 449; 1540 30th St.
+(1) Cooperative Institute for Research in Environmental Sciences
 University of Colorado Boulder   CO      80309-0449      USA
-vox: 303/492-1113    fax:303/492-2468  net: teds@icehouse.colorado.edu
+tascambos@Colorado.EDU
 
 (2) Joint Center for Earth System Science, Department of Meterology,
 University of Maryland, College Park, MD  USA
@@ -29,7 +35,8 @@ Internet:   iceflow@laural.gsfc.nasa.gov (IP:  128.183.47.79)
 
 (4) National Snow and Ice Data Center, CIRES; Campus Box 449; 1540 30th St.
 University of Colorado Boulder   CO      80309-0449      USA
-Phone: 303-492-8814    fax:303-492-2468  net: braup@kryos.colorado.edu
+303-492-8814
+braup@nsidc.org
 
 
 INTRODUCTION
