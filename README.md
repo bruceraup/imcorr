@@ -1,45 +1,6 @@
-IMCORR Release 1.1
+# INTRODUCTION
 
-------------------------------------------------------------------------
 2020-12-21
-
-This is unsupported software.  Information below, particularly contact
-information, may be out-of-date.
-------------------------------------------------------------------------
-
-(Note:  This file, the makefiles, and a couple of other details about the
-distribution have been slightly edited and put under revision control by Bruce
-Raup.  The software is functionally unchanged (except for one minor
-compile-time option), but the release number is no longer 1.0.  If you have
-comments or suggestions for changes or additions, please send them to B.
-Raup and T.  Scambos.)
-
-Notes on using IMCORR image-to-image greylevel correlation software
-
-T. Scambos       (1)
-M. Fahnestock    (2)
-R. Bindschadler  (3)
-B. Raup          (4)
-
-(1) Cooperative Institute for Research in Environmental Sciences
-University of Colorado Boulder   CO      80309-0449      USA
-tascambos@Colorado.EDU
-
-(2) Joint Center for Earth System Science, Department of Meterology,
-University of Maryland, College Park, MD  USA
-voice: 301/405-5384 net:mark@firn.gsfc.nasa.gov
-
-(3)Code 971 NASA/Goddard Space Flight Center  Greenbelt MD 20771   USA
-Voice:  301/286-4717 or 301/286-2142     Fax:  301/286-2717
-Internet:   iceflow@laural.gsfc.nasa.gov (IP:  128.183.47.79)
-
-(4) National Snow and Ice Data Center, CIRES; Campus Box 449; 1540 30th St.
-University of Colorado Boulder   CO      80309-0449      USA
-303-492-8814
-braup@nsidc.org
-
-
-INTRODUCTION
 
 The following documentation is intended to help interested users acquire
 and begin using IMCORR, a simple image cross-correlation program which can
@@ -50,7 +11,9 @@ subroutines and a simple C routine that acts as a front end.  All the
 subroutines required for displacement analysis are within the directory
 associated with this document file.
 
-IMCORR
+# IMCORR
+
+IMCORR Release 1.1
 
 IMCORR takes two images and a series of input parameters and attempts to
 match small subscenes (called 'chips') from the two images.  The program
@@ -89,18 +52,14 @@ images required to optimize the displacement measurements is published in
 Remote Sensing of Environment (Scambos et al., 1992; see bibliography).  We
 will gladly provide a preprint upon request.
 
-GETTING THE SOFTWARE
-
-The latest distribution for imcorr is at
-http://www-nsidc.colorado.edu/NSIDC/ANTARCT_VELOC/imcorr.html.
-
-LOADING THE SOFTWARE
+# LOADING THE SOFTWARE
 
 Transfer the entire contents of the 'distribution' directory to your
 workstation (the tutorial discussion below will assume you have transferred
 the four test images we have included in the directory).  This directory is
 roughly 1.25 Mbytes, and contains the following files:
 
+```
 conv.y87         test image file
 conv.y89         test image file
 correlate.h      Header file for imcorr.c
@@ -124,19 +83,20 @@ test1.out        Example output file
 test2.out        Example output file
 test3.out        Example output file
 TO_DO.txt        list of to-do's
+```
 
-COMPILE-TIME OPTION
+# COMPILE-TIME OPTION
 
 Before compiling, you can uncomment (delete the '#' character) the line in
 the makefile that says
 
-#DEFS = -DCOMMANDLINE
+    #DEFS = -DCOMMANDLINE
 
 This will cause imcorr to print the command-line that was issued at the
 shell prompt as the first line in the output file, preceded by a '#'
 character.
 
-HOW TO COMPILE
+# HOW TO COMPILE
 
 The IMCORR source code is roughly 65 kilobytes.  It requires both C and FORTRAN
 compilers.  It contains no graphics commands in either language, and should be
@@ -145,29 +105,32 @@ workstations; the software has also been compiled on SUN Sparcstations and
 Linux machines.  We have included makefile files for SGI, Linux, and SUN
 workstations.  To generate an executable file from the source code, type:
 
-prompt>make -f  makefile.[SUN or SGI or Linux] imcorr
+    prompt> make -f  makefile.[SUN or SGI or Linux] imcorr
 
 On any system, to remove the object files, type:
-prompt>make -f makefile.[SUN or SGI or Linux] clean
+
+    prompt> make -f makefile.[SUN or SGI or Linux] clean
 
 If you want or need to make any changes to the makefile, we recommend:
 
-prompt> cp makefile.[SUN or SGI or Linux] Makefile
-prompt> vi Makefile (make changes with whatever editor you like)
-prompt> make
+    prompt> cp makefile.[SUN or SGI or Linux] Makefile
+    prompt> vi Makefile (make changes with whatever editor you like)
+    prompt> make
 
 By default, make uses "Makefile" as input, if it exists.
 
 All of these makefiles produce an executable file named imcorr.
 
-INPUT PARAMETERS
+# INPUT PARAMETERS
 
 This IMCORR version takes either 5, 10, or 14 input parameters, which are
 typed on the same line as the 'imcorr' command separated by spaces.  Simply
 typing 'imcorr' and return gives a list of the required input parameters
 for each of these three formats.
 
-	List of Input Parameters:
+## List of Input Parameters:
+
+```
 reference image filename (generally the older image)
 search image filename (generally the newer image)
 number of pixels per line in images (no default)
@@ -190,6 +153,7 @@ x offset of subimage to be analysed (default: 0)
 y offset of subimage to be analysed (default: 0)
 x extent of subimage (default: full x extent)
 y extent of subimage (default: full y extent)
+```
 
 The reference image will have the smaller, 'reference chip', subimages derived
 from it, at regular grid spacings, and these chips will be compared to larger
@@ -208,6 +172,7 @@ x direction (to the right) by 20 pixels, then the x-offset should be -20.
 
 The coordinate system has x positive to the right, and y positive downward:
 
+```
     --------------> x
     |
     |
@@ -217,6 +182,7 @@ The coordinate system has x positive to the right, and y positive downward:
     |
     V
     y
+```
 
 Large search and reference chip sizes slow the runtime considerably, and a
 large reference chip may cause problems if any distortion of the features
@@ -251,14 +217,15 @@ displacement matches to a specific region within the scenes.  The run proceeds
 as if the subareas were the full image size.  However, the output locations of
 any matches are given relative to full scene coordinates.
 
-THE OUTPUT PARAMETERS
+# OUTPUT PARAMETERS
 
 The output file is in ASCII format, and consists of a series of lines with nine
 entries each.  A line is generated for every gridpoint, whether a successful
 match was found or not, and no matter what the quality of the match was.
 
-List of Output Parameters:
+## List of Output Parameters:
 
+```
 x coordinate of center of reference chip	(integer)
 y coordinate of center of reference chip	(integer)
 total displacement in pixels	(real)
@@ -268,12 +235,13 @@ x displacement to best match within search chip in pixels	(real)
 y displacement to best match within search chip in pixels	(real)
 x estimated error in pixels	(real)
 y estimated error in pixels	(real)
+```
 
-	The first two parameters give the location of the center of the reference
+The first two parameters give the location of the center of the reference
 chip.  The total displacement is exactly the distance formula applied to the
 x and y displacements listed later; it is zero if no successful match was found.
 
-	The correlation strength parameter is a function of the character of
+The correlation strength parameter is a function of the character of
 a correlation index 'map' that the greycorr subroutines create and evaluate -
 it is a combination of peak height of the correlation map, height of peak to
 second-highest peak, and height of peak to background value of correlation
@@ -288,16 +256,18 @@ Its magnitude changes somewhat with the input parameters for any given run -
 larger search and reference chips tend to produce larger strength of correlation
 values for a given region of the images.
 
-	The result flag parameter is an integer returned by imcorr indicating
+The result flag parameter is an integer returned by imcorr indicating
 if a good match was found, or if not, what went wrong.  Flag values mean:
- 1: successfully correlated
- 2: failed to correlate; Correlation peak too near edge of search chip
- 3: failed to correlate; Subsidiary peak comparable in strength to
+
+   1: successfully correlated
+   2: failed to correlate; Correlation peak too near edge of search chip
+   3: failed to correlate; Subsidiary peak comparable in strength to
 	main peak
- 4: failed to correlate; Strength of peak below minimum specified by
+   4: failed to correlate; Strength of peak below minimum specified by
 	user (we have set minimum to zero, so this one will not	appear)
- 5: failed to correlate;  Diagonal displacement from nominal location
+   5: failed to correlate;  Diagonal displacement from nominal location
 	exceeds maximum specified by the user
+
 Case 2 is indicated if the match was found within 2 pixels of the limit of where
 the reference chip can fit within the search chip - such proximity to the edge
 does not allow for good statistical determination of whether the match is valid.
@@ -311,7 +281,7 @@ derived from a peak-height-to-peak-width comparison.  The values are sensitive
 to the size of the reference chip; good matches with larger reference chips
 yeild smaller x and y errors, in general.
 
-RUNNING A TEST ANALYSIS
+# RUNNING A TEST ANALYSIS
 
 	Within the same directory as the IMCORR software there are four images
 that have been preprocessed for IMCORR analysis, and a series of results files
@@ -329,10 +299,11 @@ use these images as input for IMCORR.
 The following is an example of an IMCORR run over an area where a high
 percentage of the matches are 'correct'.  It uses all the default parameters.
 
-prompt>imcorr conv.y87 conv.y89 512 512 test1.out
+    prompt> imcorr conv.y87 conv.y89 512 512 test1.out
 
 you will see the following as the run proceeds:
 
+```
 opening conv.y87 as ref image and conv.y89 as search image, size 512 by 512
 writing to test1.out
 xoff=0 yoff=0 xext=512 yext=512
@@ -353,6 +324,7 @@ l 64 r 64 t 64 b 64
 .
 .
 439 	439	29.983	11.734	1	-13.120	21.260	0.157	0.197
+```
 
 The output beginning with the first 64, 64 line will go into a file labeled
 test1.out.  This data may then be edited in a number of ways, using the strength
@@ -361,8 +333,9 @@ points.
 
 Another example of a IMCORR run, using the fang image pair :
 
-prompt>imcorr fang.y87 fang.y89 512 512 test2.out 128 32 20 0 0
+    prompt> imcorr fang.y87 fang.y89 512 512 test2.out 128 32 20 0 0
 
+```
 opening fang.y87 as ref image and fang.y89 as search image, size 512 by 512
 writing to test2.out
 xoff=0 yoff=0 xext=512 yext=512
@@ -383,6 +356,7 @@ l 64 r 64 t 64 b 64
 .
 .
 444	444	5.912	116.630	1	-3.613	4.680	8.011	4.871
+```
 
 This area is more difficult for a number of reasons. You will note that a
 diagonal region (corresponding with a chaotically fractured zone in the image)
@@ -394,8 +368,7 @@ file, as well as hand editing by inspection.
 
 An example of a run which attempts to get data in the shear area is
 
-
-prompt>imcorr fang.y87 fang.y89 512 512 test3.out 32 16 8 5 -11 50 0 200 512
+    prompt> imcorr fang.y87 fang.y89 512 512 test3.out 32 16 8 5 -11 50 0 200 512
 
 This run has a reduced reference chip size, thus encompassing less velocity
 gradient, and uses a reduced search chip area and offsets to select a smaller,
@@ -407,6 +380,7 @@ high-strain region will it be better).
 
 The results on the screen from the second run should be:
 
+```
 opening fang.y87 as ref image and fang.y89 as search image, size 512 by 512
 writing to test3.out
 xoff=50 yoff=0 xext=200 yext=512
@@ -427,6 +401,7 @@ l 24 r 8 t 8 b 34
 .
 .
 239	480	0.000	0.000	2	0.000	0.000	0.000	0.000
+```
 
 (other lines had successful matches)
 
@@ -434,7 +409,7 @@ The above 'style' of running IMCORR should be used with caution, as it presumes
 that a specific, narrow, range of displacements is occurring in the analyzed
 area.
 
-PREPROCESSING OF IMAGERY
+# PREPROCESSING OF IMAGERY
 
 Since most users of this software will be concerned with the measurement of
 ice velocity using digital satellite imagery, or, perhaps, digitized aerial
@@ -462,19 +437,58 @@ IMCORR routine will attempt to shift matches based on the surficial features so
 that the larger-scale pixel brighness variations associated with the bed
 topography also tend to match.
 
-BIBLIOGRAPHY
+# NOTES
 
-Bernstein, R. (1983), Image geometry and rectification, In Manual of Remote
-Sensing (R. N. Colwell, ed.), American Society of Photogrammetry, Falls Church,
-VA, pp.881-884.
+This is unsupported software.  Information below, particularly contact
+information, may be out-of-date.
 
-Crippen, R. E. (1989), A simple filtering routine for the cosmetic removal of
-scan-line noise from Landsat TM P-tape imagery, Photogrammetric Engineering and
-Remote Sensing, 55, 327-331.
+(Note:  This file, the makefiles, and a couple of other details about the
+distribution have been slightly edited and put under revision control by Bruce
+Raup.  The software is functionally unchanged (except for one minor
+compile-time option), but the release number is no longer 1.0.  If you have
+comments or suggestions for changes or additions, please send them to B.
+Raup and T. Scambos.)
 
-Orheim, O., and Lucchitta, B. K. (1987), Snow and ice studies by Thematic Mapper
-and Multispectral Scanner Landsat images, Annals of Glaciology, 9, 109-118.
+People behind this software, originally:
 
-Scambos, T. A., M. J. Dutkiewicz, J. C. Wilson, and R. A. Bindschadler, 1992.
-Application of image cross-correlation to the measurement of glacier velocity
-using satellite image data.  Remote Sensing of Environment, vol. 42, 177 - 186.
+```
+T. Scambos       (1)
+M. Fahnestock    (2)
+R. Bindschadler  (3)
+B. Raup          (4)
+```
+
+(1) Cooperative Institute for Research in Environmental Sciences
+University of Colorado Boulder   CO      80309-0449      USA
+tascambos@Colorado.EDU
+
+(2) Joint Center for Earth System Science, Department of Meterology,
+University of Maryland, College Park, MD  USA
+voice: 301/405-5384 net:mark@firn.gsfc.nasa.gov
+
+(3)Code 971 NASA/Goddard Space Flight Center  Greenbelt MD 20771   USA
+Voice:  301/286-4717 or 301/286-2142     Fax:  301/286-2717
+Internet:   iceflow@laural.gsfc.nasa.gov (IP:  128.183.47.79)
+
+(4) National Snow and Ice Data Center, CIRES; Campus Box 449; 1540 30th St.
+University of Colorado Boulder   CO      80309-0449      USA
+bruce.raup@colorado.edu
+
+# BIBLIOGRAPHY
+
+    * Bernstein, R. (1983), Image geometry and rectification, In Manual of
+      Remote Sensing (R. N. Colwell, ed.), American Society of Photogrammetry,
+      Falls Church, VA, pp.881-884.
+
+    * Crippen, R. E. (1989), A simple filtering routine for the cosmetic
+      removal of scan-line noise from Landsat TM P-tape imagery,
+      Photogrammetric Engineering and Remote Sensing, 55, 327-331.
+
+    * Orheim, O., and Lucchitta, B. K. (1987), Snow and ice studies by Thematic
+      Mapper and Multispectral Scanner Landsat images, Annals of Glaciology, 9,
+      109-118.
+
+    * Scambos, T. A., M. J. Dutkiewicz, J. C. Wilson, and R. A. Bindschadler,
+      1992.  Application of image cross-correlation to the measurement of
+      glacier velocity using satellite image data.  Remote Sensing of
+      Environment, vol. 42, 177 - 186.
